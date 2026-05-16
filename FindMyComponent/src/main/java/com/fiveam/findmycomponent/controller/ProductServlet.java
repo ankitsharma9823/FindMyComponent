@@ -116,7 +116,7 @@ public class ProductServlet extends HttpServlet {
         List<Category> categories = categoryDao.findAllActive();
         request.setAttribute("categories", categories);
         request.setAttribute("isAddMode", true);
-        request.getRequestDispatcher("/WEB-INF/seller/product-form.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/seller/product-form.jsp").forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response,
@@ -148,7 +148,7 @@ public class ProductServlet extends HttpServlet {
             request.setAttribute("categories", categories);
             request.setAttribute("product", product);
             request.setAttribute("isAddMode", false);
-            request.getRequestDispatcher("/WEB-INF/seller/product-form.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/seller/product-form.jsp").forward(request, response);
 
         } catch (NumberFormatException e) {
             response.sendRedirect(request.getContextPath() + "/seller/products");
@@ -167,7 +167,7 @@ public class ProductServlet extends HttpServlet {
         }
         request.setAttribute("products", products);
         request.setAttribute("isAdmin", isAdmin);
-        request.getRequestDispatcher("/WEB-INF/seller/products.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/seller/products.jsp").forward(request, response);
     }
 
     // ==================== ACTION HANDLERS ====================
@@ -429,6 +429,6 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("preservedIsActive", request.getParameter("isActive"));
 
         // Forward (not redirect) to keep the request data
-        request.getRequestDispatcher("/WEB-INF/seller/product-form.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/seller/product-form.jsp").forward(request, response);
     }
 }

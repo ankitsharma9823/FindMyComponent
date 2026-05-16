@@ -7,14 +7,18 @@
 </jsp:include>
 
 <body>
-<div class="admin-page" style="max-width: 550px;">
-    <div class="admin-header">
-        <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="FMC Logo" />
-        <h1>FMC Admin</h1>
-    </div>
+<div class="admin-layout">
+    <jsp:include page="/WEB-INF/templates/admin-sidebar.jsp">
+        <jsp:param name="active" value="categories" />
+    </jsp:include>
 
-    <div class="admin-card">
-        <h2>${category == null ? 'New Category' : 'Edit Category'}</h2>
+    <main class="admin-main-content narrow-content">
+        <div class="admin-header">
+            <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="FMC Logo" />
+            <h1>${category == null ? 'New Category' : 'Edit Category'}</h1>
+        </div>
+
+        <div class="admin-card">
 
         <c:if test="${not empty error}">
             <div class="alert alert-error">
@@ -44,7 +48,8 @@
                 <a href="${pageContext.request.contextPath}/admin/categories" class="btn-cancel">Cancel</a>
             </div>
         </form>
-    </div>
+        </div>
+    </main>
 </div>
 </body>
 </html>

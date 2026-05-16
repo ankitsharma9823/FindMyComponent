@@ -96,7 +96,7 @@ public class ProductDetailServlet extends HttpServlet {
             request.setAttribute("inStock", inStock);
 
             // Forward to product detail JSP
-            request.getRequestDispatcher("/WEB-INF/product-detail.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/shop/product-detail.jsp").forward(request, response);
 
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid product ID format");

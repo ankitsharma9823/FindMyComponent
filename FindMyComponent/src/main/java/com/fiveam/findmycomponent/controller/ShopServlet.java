@@ -118,6 +118,6 @@ public class ShopServlet extends HttpServlet {
         request.setAttribute("pageSize", PAGE_SIZE);
 
         // Forward to JSP
-        request.getRequestDispatcher("/WEB-INF/shop.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/shop/shop.jsp").forward(request, response);
     }
 }

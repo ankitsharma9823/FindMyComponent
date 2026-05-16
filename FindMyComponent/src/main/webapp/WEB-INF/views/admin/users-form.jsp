@@ -7,25 +7,29 @@
 </jsp:include>
 
 <body>
-<div class="admin-page">
-    <div class="admin-header">
-        <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="FMC Logo" />
-        <h1>Edit User Profile</h1>
-    </div>
+<div class="admin-layout">
+    <jsp:include page="/WEB-INF/templates/admin-sidebar.jsp">
+        <jsp:param name="active" value="users" />
+    </jsp:include>
 
-    <div class="admin-card" style="max-width: 600px; margin: 0 auto;">
-        <!-- Action matches doPost: /admin/users?action=update -->
+    <main class="admin-main-content narrow-content">
+        <div class="admin-header">
+            <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="FMC Logo" />
+            <h1>Edit User Profile</h1>
+        </div>
+
+        <div class="admin-card">
         <form action="${pageContext.request.contextPath}/admin/users?action=update" method="post">
             <input type="hidden" name="id" value="${editUser.id}">
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; padding: 15px; border: 1px dashed var(--border); border-radius: var(--radius-sm);">
+            <div class="profile-summary">
                 <div>
-                    <label style="font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--muted); text-transform: uppercase;">Role</label>
-                    <div style="color: var(--accent); font-weight: bold; font-size: 0.9rem;">${roleName}</div>
+                    <label>Role</label>
+                    <div>${roleName}</div>
                 </div>
                 <div>
-                    <label style="font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--muted); text-transform: uppercase;">Username</label>
-                    <div style="color: var(--text); font-size: 0.9rem;">@${editUser.username}</div>
+                    <label>Username</label>
+                    <div>@${editUser.username}</div>
                 </div>
             </div>
 
@@ -46,14 +50,14 @@
 
             <c:choose>
                 <c:when test="${isEditingSelf}">
-                    <div class="alert" style="background: rgba(79, 142, 247, 0.05); border: 1px solid var(--border);">
-                        <span style="font-size: 0.8rem; color: var(--muted);">Account status cannot be modified for your own session.</span>
+                    <div class="alert alert-info">
+                        <span>Account status cannot be modified for your own session.</span>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="form-group">
                         <label>Account Status</label>
-                        <select name="isActive" class="btn-submit" style="background: var(--surface); color: var(--text); border: 1px solid var(--border); width: 100%; text-align: left; padding: 12px; font-family: 'Exo 2', sans-serif;">
+                        <select name="isActive">
                             <option value="true" ${editUser.active ? 'selected' : ''}>ACTIVE</option>
                             <option value="false" ${!editUser.active ? 'selected' : ''}>SUSPENDED / INACTIVE</option>
                         </select>
@@ -66,7 +70,8 @@
                 <a href="${pageContext.request.contextPath}/admin/users" class="btn-cancel">Cancel</a>
             </div>
         </form>
+        </div>
+    </main>
     </div>
-</div>
 </body>
 </html>
