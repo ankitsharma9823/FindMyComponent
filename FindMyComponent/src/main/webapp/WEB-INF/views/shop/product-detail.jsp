@@ -93,7 +93,7 @@
                 <c:choose>
                     <c:when test="${inStock}">
                         <!-- Form action routes to Cart controller endpoint -->
-                        <form action="${pageContext.request.contextPath}/cart?action=add" method="POST">
+                        <form action="${pageContext.request.contextPath}/buyer/cart?action=add" method="POST">
                             <input type="hidden" name="productId" value="${product.id}" />
 
                             <div class="quantity-selector">

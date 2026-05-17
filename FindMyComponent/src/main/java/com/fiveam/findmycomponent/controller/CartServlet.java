@@ -65,7 +65,7 @@ public class CartServlet extends HttpServlet {
         request.setAttribute("itemCount", itemCount);
 
         // Forward to cart page
-        request.getRequestDispatcher("/WEB-INF/buyer/cart.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/shop/cart.jsp").forward(request, response);
     }
 
     @Override
