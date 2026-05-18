@@ -164,7 +164,7 @@ public class LoginServlet extends HttpServlet {
                 break;
             case Role.ROLE_BUYER:
             default:
-                response.sendRedirect(contextPath + "/buyer/shop");
+                response.sendRedirect(contextPath + "/shop");
                 break;
 //            default:
 //                response.sendRedirect(contextPath + "/index.jsp");

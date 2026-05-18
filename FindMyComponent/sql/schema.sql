@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS user_sessions;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS order_items;
 -- =============================================================
 -- DATABASE SCHEMA
 -- =============================================================
@@ -126,43 +128,45 @@ CREATE TABLE IF NOT EXISTS cart_items (
 -- =====================================================
 -- ORDERS TABLE
 -- Stores all orders placed by buyers
+-- Admin handles accept/reject/dispatch
 -- =====================================================
 CREATE TABLE IF NOT EXISTS orders (
                                       id              INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary key, auto-incremented unique identifier',
-                                      order_number    VARCHAR(20) UNIQUE NOT NULL COMMENT 'Auto-incremented order number',
+                                      order_number    VARCHAR(20) UNIQUE NOT NULL COMMENT 'Auto-incremented order number (e.g., ORD-1001)',
     user_id         INT NOT NULL COMMENT 'Foreign key referencing users.id (buyer who placed order)',
-    total_amount    DECIMAL(10, 2) NOT NULL COMMENT 'Total order amount after seller responses',
-    order_status    ENUM('pending', 'accepted', 'dispatched', 'delivered', 'cancelled') DEFAULT 'pending' COMMENT 'Current order status',
-    payment_status  ENUM('pending', 'paid', 'failed') DEFAULT 'pending' COMMENT 'Payment status (COD only)',
-    payment_method  VARCHAR(50) DEFAULT 'COD' COMMENT 'Payment method (default: COD)',
+    total_amount    DECIMAL(10, 2) NOT NULL COMMENT 'Total order amount',
+    order_status    ENUM('pending', 'accepted', 'rejected', 'dispatched', 'delivered', 'cancelled') DEFAULT 'pending' COMMENT 'Order status: pending=waiting admin, accepted=admin approved, rejected=admin denied, dispatched=shipped, delivered=buyer confirmed, cancelled=buyer cancelled',
+    payment_status  ENUM('pending', 'paid', 'failed') DEFAULT 'pending' COMMENT 'Payment status (COD only): pending=not paid, paid=payment completed, failed=payment error',
+    payment_method  VARCHAR(50) DEFAULT 'COD' COMMENT 'Payment method (default: Cash on Delivery)',
     shipping_address TEXT COMMENT 'Delivery address for the order',
     notes           TEXT COMMENT 'Additional notes from buyer',
-    accepted_at     TIMESTAMP NULL COMMENT 'When all items were accepted',
+    accepted_at     TIMESTAMP NULL COMMENT 'When admin accepted the order',
+    rejected_at     TIMESTAMP NULL COMMENT 'When admin rejected the order',
     dispatched_at   TIMESTAMP NULL COMMENT 'When admin dispatched the order',
     delivered_at    TIMESTAMP NULL COMMENT 'When buyer confirmed delivery',
+    cancelled_at    TIMESTAMP NULL COMMENT 'When buyer cancelled order',
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'When order was created',
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update timestamp',
 
-    CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES users(id)
-    ) COMMENT = 'Stores all orders placed by buyers';
+    CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT
+    ) COMMENT = 'Stores all orders placed by buyers. Admin manages order status.';
 
 -- =====================================================
 -- ORDER ITEMS TABLE
--- Stores individual products within an order (per seller)
+-- Stores individual products within an order
+-- Each item belongs to one seller (for seller sales tracking)
 -- =====================================================
 CREATE TABLE IF NOT EXISTS order_items (
-                                           id                  INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary key, auto-incremented unique identifier',
-                                           order_id            INT NOT NULL COMMENT 'Foreign key referencing orders.id',
-                                           product_id          INT NOT NULL COMMENT 'Foreign key referencing products.id',
-                                           seller_id           INT NOT NULL COMMENT 'Foreign key referencing users.id (seller of this product)',
-                                           product_name        VARCHAR(200) NOT NULL COMMENT 'Snapshot of product name at order time',
-    product_price       DECIMAL(10, 2) NOT NULL COMMENT 'Snapshot of product price at order time',
-    quantity            INT NOT NULL COMMENT 'Quantity ordered',
-    subtotal            DECIMAL(10, 2) NOT NULL COMMENT 'product_price * quantity',
-    seller_status       ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending' COMMENT 'Seller decision on this item',
-    seller_responded_at TIMESTAMP NULL COMMENT 'When seller made decision',
+                                           id              INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary key, auto-incremented unique identifier',
+                                           order_id        INT NOT NULL COMMENT 'Foreign key referencing orders.id',
+                                           product_id      INT NOT NULL COMMENT 'Foreign key referencing products.id',
+                                           seller_id       INT NOT NULL COMMENT 'Foreign key referencing users.id (seller who owns this product)',
+                                           product_name    VARCHAR(200) NOT NULL COMMENT 'Snapshot of product name at order time (preserved even if product name changes later)',
+    product_price   DECIMAL(10, 2) NOT NULL COMMENT 'Snapshot of product price at order time (preserves price paid by buyer)',
+    quantity        INT NOT NULL COMMENT 'Quantity ordered',
+    subtotal        DECIMAL(10, 2) NOT NULL COMMENT 'product_price * quantity',
 
     CONSTRAINT fk_orderitems_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-    CONSTRAINT fk_orderitems_product FOREIGN KEY (product_id) REFERENCES products(id),
-    CONSTRAINT fk_orderitems_seller FOREIGN KEY (seller_id) REFERENCES users(id)
-    ) COMMENT = 'Stores individual products within an order (per seller)';
+    CONSTRAINT fk_orderitems_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_orderitems_seller FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT
+    ) COMMENT = 'Stores individual products within an order. Each item belongs to a seller for sales tracking. Price and name are snapshots at order time.';
