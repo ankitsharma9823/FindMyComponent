@@ -33,7 +33,7 @@ public class AuthFilter implements Filter {
 
     // Exact match public paths
     private static final List<String> PUBLIC_EXACT_PATHS = Arrays.asList(
-            "/products", "/product"
+            "/shop","/product-details"
     );
 
     // Auth pages (redirect to dashboard if already logged in)
