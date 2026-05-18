@@ -1,0 +1,257 @@
+/* ==========================================================================
+   order-detail.css — Granular View Asset Variables & Structural Panels
+   ========================================================================== */
+:root {
+    --page-bg: #f8fafc;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --border-line: #e2e8f0;
+    --accent-blue: #2563eb;
+    --radius-standard: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html body,
+html body .detail-page-scoped.detail-wrapper {
+    background: var(--page-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.detail-page-scoped.detail-wrapper {
+    width: min(1200px, calc(100% - 48px));
+    margin: 40px auto 60px;
+}
+
+/* Breadcrumbs Section */
+.breadcrumb-row {
+    margin-bottom: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.breadcrumb-row a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.breadcrumb-row .divider {
+    color: #cbd5e1;
+    margin: 0 8px;
+}
+
+/* Main Header Row */
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    gap: 16px;
+}
+
+.detail-header h1 {
+    margin: 0 0 4px 0;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.meta-date {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.status-badge-group {
+    display: flex;
+    gap: 8px;
+}
+
+/* Status Pill Rules */
+.status-pill {
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.status-pending { background: #fef3c7 !important; color: #d97706 !important; }
+.status-accepted { background: #e0f2fe !important; color: #0284c7 !important; }
+.status-dispatched { background: #e0e7ff !important; color: #4f46e5 !important; }
+.status-delivered { background: #dcfce7 !important; color: #16a34a !important; }
+.status-cancelled { background: #f3f4f6 !important; color: #4b5563 !important; }
+
+/* Structural Grid Grid Matrix Layout */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.items-panel, .summary-sidebar .summary-block {
+    background: #ffffff !important;
+    border: 1px solid var(--border-line) !important;
+    border-radius: var(--radius-standard);
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.summary-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.panel-heading {
+    margin: 0 0 20px 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-line);
+    padding-bottom: 10px;
+}
+
+/* Component Procurement Card Elements */
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.item-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f8fafc !important;
+    border: 1px solid var(--border-line) !important;
+    border-radius: 6px;
+}
+
+.item-name {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.item-seller {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.item-pricing {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.unit-breakdown {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.item-subtotal {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Action Footers */
+.panel-action-footer {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.panel-action-footer p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.btn-cancel-order {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border: none;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-cancel-order:hover {
+    background: #dc2626 !important;
+}
+
+/* Sidebar Specific Layout Details */
+.address-text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #334155;
+}
+
+.financial-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.financial-table td {
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.financial-table .val-right {
+    text-align: right;
+    font-weight: 600;
+}
+
+.financial-table .total-row td {
+    padding-top: 16px;
+    border-top: 1px solid var(--border-line);
+    margin-top: 8px;
+}
+
+.financial-table .total-amount {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+/* Responsive Compress Configurations */
+@media (max-width: 960px) {
+    .detail-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .detail-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    .panel-action-footer {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    .btn-cancel-order {
+        width: 100%;
+    }
+}

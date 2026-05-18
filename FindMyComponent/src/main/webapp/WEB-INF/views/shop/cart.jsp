@@ -92,7 +92,19 @@
                         <span class="total-amount">$<fmt:formatNumber value="${cartTotal}" minFractionDigits="2" maxFractionDigits="2" /></span>
                     </div>
 
-                    <button class="btn-checkout-now">Proceed to Checkout</button>
+                    <form action="${pageContext.request.contextPath}/buyer/orders" method="POST" class="checkout-action-form" style="margin-bottom: 16px;">
+                        <input type="hidden" name="action" value="place" />
+
+                        <div class="shipping-address-box" style="margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+                            <label for="shippingAddress" style="font-size: 14px; font-weight: 600; color: var(--muted);">Delivery Address:</label>
+                            <input type="text" id="shippingAddress" name="shippingAddress" placeholder="Enter physical street address" required
+                                   style="width: 100%; height: 40px; background: var(--field); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 12px; font-family: inherit; font-size: 14px; outline: none;" />
+                        </div>
+
+                        <button type="submit" class="btn-checkout-now">
+                            Proceed to Checkout
+                        </button>
+                    </form>
 
                     <form action="${pageContext.request.contextPath}/buyer/cart" method="POST" class="clear-cart-form">
                         <input type="hidden" name="action" value="clear" />

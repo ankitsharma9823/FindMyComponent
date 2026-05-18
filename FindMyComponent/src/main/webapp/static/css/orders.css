@@ -1,0 +1,234 @@
+/* ==========================================================================
+   orders.css — Workspace Variables & Isolated Data Grids
+   ========================================================================== */
+:root {
+    --page-bg: #f8fafc;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --border-line: #e2e8f0;
+    --accent-blue: #2563eb;
+    --accent-blue-hover: #1d4ed8;
+    --radius-standard: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html body,
+html body .orders-page-scoped.orders-wrapper {
+    background: var(--page-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Structural Layout Scopes */
+.orders-page-scoped.orders-wrapper {
+    width: min(1200px, calc(100% - 48px));
+    margin: 40px auto 60px;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0 0 6px 0;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.page-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* System Alerts Notification Banners */
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.alert-error {
+    background: #fef2f2 !important;
+    color: #ef4444 !important;
+    border: 1px solid #fca5a5 !important;
+}
+
+.alert-success {
+    background: #ecfdf5 !important;
+    color: #10b981 !important;
+    border: 1px solid #6ee7b7 !important;
+}
+
+/* Empty Pipeline Display Component */
+.empty-orders-card {
+    background: #ffffff !important;
+    border: 1px solid var(--border-line) !important;
+    border-radius: var(--radius-standard);
+    padding: 48px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.empty-orders-card .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.empty-orders-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.empty-orders-card p {
+    margin: 0 0 24px 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.btn-shop {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--accent-blue) !important;
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 0.15s;
+}
+
+.btn-shop:hover {
+    background: var(--accent-blue-hover) !important;
+}
+
+/* Tabular Data Grid Wrapper Matrix */
+.orders-table-wrapper {
+    background: #ffffff !important;
+    border: 1px solid var(--border-line) !important;
+    border-radius: var(--radius-standard);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background: #f8fafc !important;
+    border-bottom: 1px solid var(--border-line) !important;
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-line) !important;
+    font-size: 14px;
+    vertical-align: middle;
+    background: #ffffff !important;
+    color: var(--text-primary) !important;
+}
+
+tr:last-child td {
+    border-bottom: none !important;
+}
+
+.order-num-link {
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.order-num-link:hover {
+    text-decoration: underline;
+}
+
+.price-col {
+    font-weight: 700;
+}
+
+/* Status Pill Indicators Badge System */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.status-pending { background: #fef3c7 !important; color: #d97706 !important; }
+.status-accepted { background: #e0f2fe !important; color: #0284c7 !important; }
+.status-dispatched { background: #e0e7ff !important; color: #4f46e5 !important; }
+.status-delivered { background: #dcfce7 !important; color: #16a34a !important; }
+.status-cancelled { background: #f3f4f6 !important; color: #4b5563 !important; }
+
+/* Control Flow Call To Action Triggers */
+.actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-action-view {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.btn-action-view:hover {
+    text-decoration: underline;
+}
+
+.inline-cancel-form {
+    display: inline;
+}
+
+.btn-action-cancel {
+    background: none !important;
+    border: none;
+    color: #ef4444 !important;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 0;
+}
+
+.btn-action-cancel:hover {
+    text-decoration: underline;
+}
+
+/* Layout Compactions across mobile Viewports */
+@media (max-width: 768px) {
+    th:nth-child(3), td:nth-child(3),
+    th:nth-child(5), td:nth-child(5) {
+        display: none;
+    }
+}

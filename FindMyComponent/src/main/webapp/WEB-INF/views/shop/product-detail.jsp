@@ -82,6 +82,7 @@
             <c:if test="${inStock}">
                 <%-- FIXED ACTION ROUTE BELOW --%>
                 <form action="${pageContext.request.contextPath}/buyer/cart" method="POST" class="cart-action-form">
+                    <input type="hidden" name="action" value="add" />
                     <input type="hidden" name="productId" value="${product.id}" />
 
                     <div class="quantity-selector-row">

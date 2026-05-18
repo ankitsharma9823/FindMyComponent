@@ -1,0 +1,143 @@
+/* ==========================================================================
+   order-confirmation.css — Thank You Landing View Stylesheet
+   ========================================================================== */
+:root {
+    --page-bg: #f8fafc;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --border-line: #e2e8f0;
+    --accent-blue: #2563eb;
+    --accent-blue-hover: #1d4ed8;
+    --radius-standard: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Force global viewport alignment grids onto page body context */
+html,
+body.confirmation-body {
+    background: var(--page-bg) !important;
+    color: var(--text-primary) !important;
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Central Card Box Element */
+.confirmation-page-scoped.confirmation-card {
+    background: #ffffff !important;
+    border: 1px solid var(--border-line) !important;
+    border-radius: var(--radius-standard);
+    padding: 40px;
+    width: min(520px, calc(100% - 32px));
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.confirmation-card .success-icon {
+    font-size: 54px;
+    margin-bottom: 20px;
+}
+
+.confirmation-card h1 {
+    margin: 0 0 8px 0;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary) !important;
+}
+
+.confirmation-card p {
+    margin: 0 0 24px 0;
+    color: var(--text-muted) !important;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Information Box Container Block */
+.receipt-summary {
+    background: #f8fafc !important;
+    border: 1px solid var(--border-line) !important;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.receipt-row:not(:last-child) {
+    border-bottom: 1px dashed var(--border-line) !important;
+}
+
+.receipt-label {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.receipt-val {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Navigation Interface Triggers */
+.actions-group {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    flex: 1;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-primary {
+    background: var(--accent-blue) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background: var(--accent-blue-hover) !important;
+}
+
+.btn-secondary {
+    background: #ffffff !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-line) !important;
+}
+
+.btn-secondary:hover {
+    background: #f8fafc !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* Responsive Handling for Mobile Viewports */
+@media (max-width: 480px) {
+    .confirmation-page-scoped.confirmation-card {
+        padding: 24px;
+    }
+    .actions-group {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
+    }
+}

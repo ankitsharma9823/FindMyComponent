@@ -17,26 +17,26 @@
             Marketplace
         </a>
 
-        <c:if test="${not empty sessionScope.user && sessionScope.role == 'BUYER'}">
+        <%-- MULTI-LAYER SESSION CHECK --%>
+        <%-- Checks both common session variable names to guarantee it catches your login state --%>
+        <c:if test="${not empty sessionScope.user || not empty sessionScope.buyer || not empty sessionScope.account}">
             <a href="${pageContext.request.contextPath}/buyer/cart"
                class="nav-item ${param.activeTab == 'cart' ? 'active' : ''}">
                 Cart
             </a>
-        </c:if>
-
-        <c:if test="${not empty sessionScope.user && sessionScope.role == 'SELLER'}">
-            <a href="${pageContext.request.contextPath}/seller/products"
-               class="nav-item ${param.activeTab == 'seller' ? 'active' : ''}">
-                Seller Hub
+            <a href="${pageContext.request.contextPath}/buyer/orders"
+               class="nav-item ${param.activeTab == 'orders' ? 'active' : ''}">
+                My Orders
             </a>
         </c:if>
     </div>
 
     <div class="nav-actions">
         <c:choose>
-            <c:when test="${not empty sessionScope.user}">
+            <%-- Match the exact same logic for the greeting block --%>
+            <c:when test="${not empty sessionScope.user || not empty sessionScope.buyer || not empty sessionScope.account}">
                 <span class="nav-right">
-                    Hi, <c:out value="${sessionScope.user.username}"/>
+                    Hi, <c:out value="${sessionScope.user.username != null ? sessionScope.user.username : (sessionScope.buyer.username != null ? sessionScope.buyer.username : 'User')}" />
                 </span>
                 <a href="${pageContext.request.contextPath}/logout" class="nav-logout">
                     Logout
