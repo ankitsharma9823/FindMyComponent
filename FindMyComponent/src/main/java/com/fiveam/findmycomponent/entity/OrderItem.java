@@ -1,13 +1,14 @@
 package com.fiveam.findmycomponent.entity;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * OrderItem entity - Represents a product within an order
  * Maps to 'order_items' table in database
- * Each order item belongs to one seller
+ *
+ * Note: product_name and product_price are snapshots at order time.
+ * They DO NOT change even if the original product is updated later.
  */
 public class OrderItem {
 
@@ -16,12 +17,15 @@ public class OrderItem {
     private int orderId;
     private int productId;
     private int sellerId;
-    private String productName;
-    private BigDecimal productPrice;
+    private String productName;      // Snapshot - not a foreign key
+    private BigDecimal productPrice;  // Snapshot - not a foreign key
     private int quantity;
     private BigDecimal subtotal;
-    private String sellerStatus;
-    private Date sellerRespondedAt;
+
+    // Optional - for display purposes only (not stored in DB)
+    private String sellerName;
+    private String productBrand;
+    private String productImageUrl;
 
     // Default constructor
     public OrderItem() {}
@@ -36,7 +40,6 @@ public class OrderItem {
         this.productPrice = productPrice;
         this.quantity = quantity;
         this.subtotal = subtotal;
-        this.sellerStatus = "pending";
     }
 
     // Getters and Setters
@@ -104,33 +107,34 @@ public class OrderItem {
         this.subtotal = subtotal;
     }
 
-    public String getSellerStatus() {
-        return sellerStatus;
+    // Optional display fields (not stored in DB)
+    public String getSellerName() {
+        return sellerName;
     }
 
-    public void setSellerStatus(String sellerStatus) {
-        this.sellerStatus = sellerStatus;
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
-    public Date getSellerRespondedAt() {
-        return sellerRespondedAt;
+    public String getProductBrand() {
+        return productBrand;
     }
 
-    public void setSellerRespondedAt(Date sellerRespondedAt) {
-        this.sellerRespondedAt = sellerRespondedAt;
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
+    }
+
+    public String getProductImageUrl() {
+        return productImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
     }
 
     // Helper methods
-    public boolean isPending() {
-        return "pending".equals(sellerStatus);
-    }
-
-    public boolean isAccepted() {
-        return "accepted".equals(sellerStatus);
-    }
-
-    public boolean isRejected() {
-        return "rejected".equals(sellerStatus);
+    public double getTotalPrice() {
+        return productPrice.doubleValue() * quantity;
     }
 
     @Override
@@ -142,7 +146,7 @@ public class OrderItem {
                 ", sellerId=" + sellerId +
                 ", productName='" + productName + '\'' +
                 ", quantity=" + quantity +
-                ", sellerStatus='" + sellerStatus + '\'' +
+                ", subtotal=" + subtotal +
                 '}';
     }
 }

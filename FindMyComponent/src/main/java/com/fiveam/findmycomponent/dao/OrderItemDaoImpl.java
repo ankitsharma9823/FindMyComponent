@@ -1,6 +1,8 @@
 package com.fiveam.findmycomponent.dao;
+
 import com.fiveam.findmycomponent.entity.OrderItem;
 import com.fiveam.findmycomponent.utils.DatabaseConnection;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
 
     @Override
     public boolean save(OrderItem orderItem) {
-        String sql = "INSERT INTO order_items (order_id, product_id, seller_id, product_name, product_price, quantity, subtotal, seller_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO order_items (order_id, product_id, seller_id, product_name, product_price, quantity, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -27,7 +29,6 @@ public class OrderItemDaoImpl implements OrderItemDao {
             pstmt.setBigDecimal(5, orderItem.getProductPrice());
             pstmt.setInt(6, orderItem.getQuantity());
             pstmt.setBigDecimal(7, orderItem.getSubtotal());
-            pstmt.setString(8, orderItem.getSellerStatus());
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -49,20 +50,19 @@ public class OrderItemDaoImpl implements OrderItemDao {
 
     @Override
     public boolean saveAll(List<OrderItem> orderItems) {
-        String sql = "INSERT INTO order_items (order_id, product_id, seller_id, product_name, product_price, quantity, subtotal, seller_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO order_items (order_id, product_id, seller_id, product_name, product_price, quantity, subtotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            for (OrderItem orderItem : orderItems) {
-                pstmt.setInt(1, orderItem.getOrderId());
-                pstmt.setInt(2, orderItem.getProductId());
-                pstmt.setInt(3, orderItem.getSellerId());
-                pstmt.setString(4, orderItem.getProductName());
-                pstmt.setBigDecimal(5, orderItem.getProductPrice());
-                pstmt.setInt(6, orderItem.getQuantity());
-                pstmt.setBigDecimal(7, orderItem.getSubtotal());
-                pstmt.setString(8, orderItem.getSellerStatus());
+            for (OrderItem item : orderItems) {
+                pstmt.setInt(1, item.getOrderId());
+                pstmt.setInt(2, item.getProductId());
+                pstmt.setInt(3, item.getSellerId());
+                pstmt.setString(4, item.getProductName());
+                pstmt.setBigDecimal(5, item.getProductPrice());
+                pstmt.setInt(6, item.getQuantity());
+                pstmt.setBigDecimal(7, item.getSubtotal());
                 pstmt.addBatch();
             }
 
@@ -102,7 +102,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
 
     @Override
     public List<OrderItem> findByOrderId(int orderId) {
-        List<OrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> items = new ArrayList<>();
         String sql = "SELECT * FROM order_items WHERE order_id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -112,7 +112,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                orderItems.add(mapResultSetToOrderItem(rs));
+                items.add(mapResultSetToOrderItem(rs));
             }
 
         } catch (SQLException e) {
@@ -120,12 +120,12 @@ public class OrderItemDaoImpl implements OrderItemDao {
             e.printStackTrace();
             throw new RuntimeException("Database error while fetching order items for order: " + orderId, e);
         }
-        return orderItems;
+        return items;
     }
 
     @Override
     public List<OrderItem> findBySellerId(int sellerId) {
-        List<OrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> items = new ArrayList<>();
         String sql = "SELECT * FROM order_items WHERE seller_id = ? ORDER BY id DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -135,7 +135,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                orderItems.add(mapResultSetToOrderItem(rs));
+                items.add(mapResultSetToOrderItem(rs));
             }
 
         } catch (SQLException e) {
@@ -143,12 +143,12 @@ public class OrderItemDaoImpl implements OrderItemDao {
             e.printStackTrace();
             throw new RuntimeException("Database error while fetching order items for seller: " + sellerId, e);
         }
-        return orderItems;
+        return items;
     }
 
     @Override
     public List<OrderItem> findByProductId(int productId) {
-        List<OrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> items = new ArrayList<>();
         String sql = "SELECT * FROM order_items WHERE product_id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -158,7 +158,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                orderItems.add(mapResultSetToOrderItem(rs));
+                items.add(mapResultSetToOrderItem(rs));
             }
 
         } catch (SQLException e) {
@@ -166,36 +166,12 @@ public class OrderItemDaoImpl implements OrderItemDao {
             e.printStackTrace();
             throw new RuntimeException("Database error while fetching order items for product: " + productId, e);
         }
-        return orderItems;
-    }
-
-    @Override
-    public List<OrderItem> findBySellerStatus(int orderId, String sellerStatus) {
-        List<OrderItem> orderItems = new ArrayList<>();
-        String sql = "SELECT * FROM order_items WHERE order_id = ? AND seller_status = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, orderId);
-            pstmt.setString(2, sellerStatus);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                orderItems.add(mapResultSetToOrderItem(rs));
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error finding order items by status: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Database error while fetching order items with status: " + sellerStatus, e);
-        }
-        return orderItems;
+        return items;
     }
 
     @Override
     public List<OrderItem> findAll() {
-        List<OrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> items = new ArrayList<>();
         String sql = "SELECT * FROM order_items ORDER BY id";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -203,7 +179,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                orderItems.add(mapResultSetToOrderItem(rs));
+                items.add(mapResultSetToOrderItem(rs));
             }
 
         } catch (SQLException e) {
@@ -211,23 +187,23 @@ public class OrderItemDaoImpl implements OrderItemDao {
             e.printStackTrace();
             throw new RuntimeException("Database error while fetching all order items", e);
         }
-        return orderItems;
+        return items;
     }
 
     // ========== UPDATE ==========
 
     @Override
     public boolean update(OrderItem orderItem) {
-        String sql = "UPDATE order_items SET product_name = ?, product_price = ?, quantity = ?, subtotal = ? WHERE id = ?";
+        // Note: Most fields should not be updated after order is placed
+        // Only quantity might be updated in rare cases
+        String sql = "UPDATE order_items SET quantity = ?, subtotal = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, orderItem.getProductName());
-            pstmt.setBigDecimal(2, orderItem.getProductPrice());
-            pstmt.setInt(3, orderItem.getQuantity());
-            pstmt.setBigDecimal(4, orderItem.getSubtotal());
-            pstmt.setInt(5, orderItem.getId());
+            pstmt.setInt(1, orderItem.getQuantity());
+            pstmt.setBigDecimal(2, orderItem.getSubtotal());
+            pstmt.setInt(3, orderItem.getId());
 
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -236,48 +212,6 @@ public class OrderItemDaoImpl implements OrderItemDao {
             System.err.println("Error updating order item: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Database error while updating order item with id: " + orderItem.getId(), e);
-        }
-    }
-
-    @Override
-    public boolean updateSellerStatus(int orderItemId, String sellerStatus) {
-        String sql = "UPDATE order_items SET seller_status = ?, seller_responded_at = NOW() WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, sellerStatus);
-            pstmt.setInt(2, orderItemId);
-
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
-
-        } catch (SQLException e) {
-            System.err.println("Error updating seller status: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Database error while updating seller status for order item: " + orderItemId, e);
-        }
-    }
-
-    @Override
-    public boolean updateSellerStatusForOrderItem(int orderId, int productId, int sellerId, String sellerStatus) {
-        String sql = "UPDATE order_items SET seller_status = ?, seller_responded_at = NOW() WHERE order_id = ? AND product_id = ? AND seller_id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, sellerStatus);
-            pstmt.setInt(2, orderId);
-            pstmt.setInt(3, productId);
-            pstmt.setInt(4, sellerId);
-
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
-
-        } catch (SQLException e) {
-            System.err.println("Error updating seller status for order item: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Database error while updating seller status", e);
         }
     }
 
@@ -322,8 +256,8 @@ public class OrderItemDaoImpl implements OrderItemDao {
     // ========== QUERIES ==========
 
     @Override
-    public double getAcceptedSubtotal(int orderId) {
-        String sql = "SELECT SUM(subtotal) FROM order_items WHERE order_id = ? AND seller_status = 'accepted'";
+    public double getSubtotalByOrderId(int orderId) {
+        String sql = "SELECT SUM(subtotal) FROM order_items WHERE order_id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -336,60 +270,16 @@ public class OrderItemDaoImpl implements OrderItemDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error getting accepted subtotal: " + e.getMessage());
+            System.err.println("Error getting subtotal by order ID: " + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Database error while getting accepted subtotal for order: " + orderId, e);
+            throw new RuntimeException("Database error while getting subtotal for order: " + orderId, e);
         }
         return 0.0;
     }
 
     @Override
-    public boolean hasAllSellersResponded(int orderId) {
-        String sql = "SELECT COUNT(*) FROM order_items WHERE order_id = ? AND seller_status = 'pending'";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, orderId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt(1) == 0;
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error checking seller responses: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Database error while checking seller responses for order: " + orderId, e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean hasAnyRejected(int orderId) {
-        String sql = "SELECT COUNT(*) FROM order_items WHERE order_id = ? AND seller_status = 'rejected'";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, orderId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error checking rejected items: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Database error while checking rejected items for order: " + orderId, e);
-        }
-        return false;
-    }
-
-    @Override
-    public int getPendingCountByOrderId(int orderId) {
-        String sql = "SELECT COUNT(*) FROM order_items WHERE order_id = ? AND seller_status = 'pending'";
+    public int getItemCountByOrderId(int orderId) {
+        String sql = "SELECT COUNT(*) FROM order_items WHERE order_id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -402,9 +292,9 @@ public class OrderItemDaoImpl implements OrderItemDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error getting pending count: " + e.getMessage());
+            System.err.println("Error getting item count by order ID: " + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Database error while getting pending count for order: " + orderId, e);
+            throw new RuntimeException("Database error while getting item count for order: " + orderId, e);
         }
         return 0;
     }
@@ -426,9 +316,9 @@ public class OrderItemDaoImpl implements OrderItemDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error getting order item count: " + e.getMessage());
+            System.err.println("Error getting count by order ID: " + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Database error while getting order item count for order: " + orderId, e);
+            throw new RuntimeException("Database error while getting count for order: " + orderId, e);
         }
         return 0;
     }
@@ -448,9 +338,9 @@ public class OrderItemDaoImpl implements OrderItemDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error getting order item count by seller: " + e.getMessage());
+            System.err.println("Error getting count by seller ID: " + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("Database error while getting order item count for seller: " + sellerId, e);
+            throw new RuntimeException("Database error while getting count for seller: " + sellerId, e);
         }
         return 0;
     }
@@ -458,17 +348,15 @@ public class OrderItemDaoImpl implements OrderItemDao {
     // ========== PRIVATE HELPER ==========
 
     private OrderItem mapResultSetToOrderItem(ResultSet rs) throws SQLException {
-        OrderItem orderItem = new OrderItem();
-        orderItem.setId(rs.getInt("id"));
-        orderItem.setOrderId(rs.getInt("order_id"));
-        orderItem.setProductId(rs.getInt("product_id"));
-        orderItem.setSellerId(rs.getInt("seller_id"));
-        orderItem.setProductName(rs.getString("product_name"));
-        orderItem.setProductPrice(rs.getBigDecimal("product_price"));
-        orderItem.setQuantity(rs.getInt("quantity"));
-        orderItem.setSubtotal(rs.getBigDecimal("subtotal"));
-        orderItem.setSellerStatus(rs.getString("seller_status"));
-        orderItem.setSellerRespondedAt(rs.getTimestamp("seller_responded_at"));
-        return orderItem;
+        OrderItem item = new OrderItem();
+        item.setId(rs.getInt("id"));
+        item.setOrderId(rs.getInt("order_id"));
+        item.setProductId(rs.getInt("product_id"));
+        item.setSellerId(rs.getInt("seller_id"));
+        item.setProductName(rs.getString("product_name"));
+        item.setProductPrice(rs.getBigDecimal("product_price"));
+        item.setQuantity(rs.getInt("quantity"));
+        item.setSubtotal(rs.getBigDecimal("subtotal"));
+        return item;
     }
 }

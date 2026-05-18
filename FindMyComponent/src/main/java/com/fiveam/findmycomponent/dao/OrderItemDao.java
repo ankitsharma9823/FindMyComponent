@@ -17,23 +17,18 @@ public interface OrderItemDao {
     List<OrderItem> findByOrderId(int orderId);
     List<OrderItem> findBySellerId(int sellerId);
     List<OrderItem> findByProductId(int productId);
-    List<OrderItem> findBySellerStatus(int orderId, String sellerStatus);
     List<OrderItem> findAll();
 
     // ========== UPDATE ==========
     boolean update(OrderItem orderItem);
-    boolean updateSellerStatus(int orderItemId, String sellerStatus);
-    boolean updateSellerStatusForOrderItem(int orderId, int productId, int sellerId, String sellerStatus);
 
     // ========== DELETE ==========
     boolean delete(int id);
     boolean deleteByOrderId(int orderId);
 
     // ========== QUERIES ==========
-    double getAcceptedSubtotal(int orderId);
-    boolean hasAllSellersResponded(int orderId);
-    boolean hasAnyRejected(int orderId);
-    int getPendingCountByOrderId(int orderId);
+    double getSubtotalByOrderId(int orderId);
+    int getItemCountByOrderId(int orderId);
 
     // ========== COUNT ==========
     int getCountByOrderId(int orderId);
