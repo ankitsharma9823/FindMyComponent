@@ -48,7 +48,7 @@ public class AccountServlet extends HttpServlet {
         User user = userDao.findById(loggedInUser.getId());
 
         request.setAttribute("user", user);
-        request.getRequestDispatcher("/WEB-INF/buyer/account.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/shop/account.jsp").forward(request, response);
     }
 
     @Override

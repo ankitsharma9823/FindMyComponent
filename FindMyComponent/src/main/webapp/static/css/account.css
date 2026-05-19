@@ -1,0 +1,349 @@
+/* ==========================================================================
+   account.css — Profile Modification Page (Forced Specificity Theme)
+   ========================================================================== */
+
+html body,
+html body .account-page-scoped.account-wrapper {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Workspace Layout & Global Elements
+   ========================================================================== */
+.account-page-scoped.account-wrapper {
+    width: min(1200px, calc(100% - 48px));
+    margin: 40px auto 60px;
+}
+
+.account-page-scoped .dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.account-page-scoped .dashboard-header h2 {
+    margin: 0 0 6px;
+    color: #0f172a !important;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.account-page-scoped .role-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #e0f2fe !important; /* soft sky tint */
+    color: #0369a1 !important;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.account-page-scoped .account-role-badge {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #64748b !important;
+}
+
+.account-page-scoped .account-role-badge strong {
+    color: #2563eb !important;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Status Alert Banners
+   ========================================================================== */
+.account-page-scoped .alert-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.account-page-scoped .alert-banner p {
+    margin: 0;
+}
+
+.account-page-scoped .alert-icon {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.account-page-scoped .alert-success {
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    color: #065f46 !important;
+}
+
+.account-page-scoped .alert-error {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    color: #991b1b !important;
+}
+
+/* ==========================================================================
+   Split Layout Cards
+   ========================================================================== */
+.account-page-scoped .profile-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.account-page-scoped .profile-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.account-page-scoped .card-divider {
+    border: 0;
+    border-top: 1px solid #e2e8f0 !important;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Left Profile Identity Details Card */
+.account-page-scoped .identity-card {
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.account-page-scoped .avatar-placeholder-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f1f5f9 !important;
+    border: 2px solid #2563eb !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.account-page-scoped .avatar-placeholder-ring span {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2563eb !important;
+    text-transform: uppercase;
+}
+
+.account-page-scoped .identity-name {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a !important;
+}
+
+.account-page-scoped .identity-username {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b !important;
+}
+
+.account-page-scoped .system-meta-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.account-page-scoped .system-meta-row:last-child {
+    margin-bottom: 0;
+}
+
+.account-page-scoped .meta-label {
+    color: #64748b !important;
+    font-weight: 500;
+}
+
+.account-page-scoped .meta-value {
+    color: #0f172a !important;
+    font-weight: 700;
+}
+
+.account-page-scoped .system-pill {
+    background: #f1f5f9 !important;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+/* Right Editable Form Card */
+.account-page-scoped .form-card {
+    padding: 30px;
+}
+
+.account-page-scoped .card-header-block {
+    margin-bottom: 24px;
+}
+
+.account-page-scoped .card-header-block h3 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a !important;
+}
+
+.account-page-scoped .card-header-block p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b !important;
+}
+
+/* ==========================================================================
+   Form Mechanics
+   ========================================================================== */
+.account-page-scoped .profile-update-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.account-page-scoped .form-row-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.account-page-scoped .form-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.account-page-scoped .form-control-group label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b !important;
+    text-transform: uppercase;
+}
+
+.account-page-scoped .form-control-group input {
+    height: 42px;
+    padding: 0 12px;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.account-page-scoped .form-control-group input:focus {
+    border-color: #2563eb !important;
+}
+
+/* Immutable/Disabled Inputs Stylings */
+.account-page-scoped .disabled-fields-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    background: #f8fafc !important;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1 !important;
+}
+
+.account-page-scoped .form-control-group.fully-disabled input {
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+    cursor: not-allowed;
+    border-color: #e2e8f0 !important;
+}
+
+/* Action Handlers */
+.account-page-scoped .form-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.account-page-scoped .btn-save-profile {
+    height: 42px;
+    padding: 0 24px;
+    background: #2563eb !important;
+    color: #ffffff !important;
+    border: 0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.account-page-scoped .btn-save-profile:hover {
+    background: #1d4ed8 !important;
+}
+
+.account-page-scoped .btn-cancel-view {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    background: #ffffff !important;
+    color: #64748b !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+.account-page-scoped .btn-cancel-view:hover {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 900px) {
+    .account-page-scoped .profile-layout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .account-page-scoped .form-row-split,
+    .account-page-scoped .disabled-fields-preview {
+        grid-template-columns: 1fr;
+    }
+    .account-page-scoped .form-actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .account-page-scoped .btn-save-profile,
+    .account-page-scoped .btn-cancel-view {
+        justify-content: center;
+        width: 100%;
+    }
+}

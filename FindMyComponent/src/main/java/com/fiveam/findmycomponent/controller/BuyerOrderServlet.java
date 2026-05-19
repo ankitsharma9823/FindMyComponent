@@ -82,7 +82,7 @@ public class BuyerOrderServlet extends HttpServlet {
                         List<OrderItem> orderItems = orderItemDao.findByOrderId(orderId);
                         request.setAttribute("order", order);
                         request.setAttribute("orderItems", orderItems);
-                        request.getRequestDispatcher("/WEB-INF/buyer/order-detail.jsp").forward(request, response);
+                        request.getRequestDispatcher("/WEB-INF/views/shop/order-detail.jsp").forward(request, response);
                         return;
                     }
                 } catch (NumberFormatException e) {
@@ -94,7 +94,7 @@ public class BuyerOrderServlet extends HttpServlet {
         } else {
             List<Order> orders = orderDao.findByUserId(buyer.getId());
             request.setAttribute("orders", orders);
-            request.getRequestDispatcher("/WEB-INF/buyer/orders.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/shop/orders.jsp").forward(request, response);
         }
     }
 
@@ -184,7 +184,7 @@ public class BuyerOrderServlet extends HttpServlet {
         request.getSession().setAttribute("lastOrderNumber", order.getOrderNumber());
         request.getSession().setAttribute("lastOrderTotal", totalAmount);
 
-        response.sendRedirect(request.getContextPath() + "/buyer/order-confirmation.jsp");
+        response.sendRedirect(request.getContextPath() + "/buyer/orders?action=confirmation");
     }
 
     private void handleCancelOrder(HttpServletRequest request, HttpServletResponse response, User buyer)

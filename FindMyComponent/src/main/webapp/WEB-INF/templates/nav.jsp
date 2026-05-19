@@ -28,6 +28,10 @@
                class="nav-item ${param.activeTab == 'orders' ? 'active' : ''}">
                 My Orders
             </a>
+            <a href="${pageContext.request.contextPath}/buyer/account"
+               class="nav-item ${param.activeTab == 'account' ? 'active' : ''}">
+                My Account
+            </a>
         </c:if>
     </div>
 
