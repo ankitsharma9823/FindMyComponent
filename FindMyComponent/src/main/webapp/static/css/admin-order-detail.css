@@ -1,0 +1,375 @@
+/* ==========================================================================
+   admin-order-detail.css - White Theme Order Inspection Form Layout
+   ========================================================================== */
+
+:root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-soft: #f1f5f9;
+    --field: #ffffff;
+    --border: #cbd5e1;
+    --accent: #2563eb;
+    --text: #0f172a;
+    --muted: #475569;
+    --muted-2: #64748b;
+
+    /* Alerts */
+    --error-bg: #fee2e2;
+    --error-border: #fca5a5;
+    --error-text: #991b1b;
+    --success-bg: #dcfce7;
+    --success-border: #86efac;
+    --success-text: #166534;
+
+    /* Pipeline States */
+    --pending-bg: #fff3cd;
+    --pending-text: #856404;
+    --accepted-bg: #d4edda;
+    --accepted-text: #155724;
+    --dispatched-bg: #d1ecf1;
+    --dispatched-text: #0c5460;
+
+    --radius: 8px;
+    --radius-sm: 6px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* --- Layout Structure Components --- */
+.admin-layout {
+    display: block;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- Navigation Sidebar Configuration --- */
+.admin-sidebar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    width: 250px;
+    height: 100vh;
+    padding: 22px 16px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    z-index: 50;
+}
+
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 24px;
+    padding: 0 8px;
+}
+
+.brand-glitch {
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.brand-sub {
+    color: var(--muted-2);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sidebar-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav a,
+.btn-logout {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.sidebar-nav a:hover {
+    background: var(--surface-soft);
+    color: var(--text);
+}
+
+.sidebar-nav li.active a {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+.btn-logout {
+    justify-content: center;
+    width: 100%;
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background: #fca5a5;
+}
+
+/* --- Container Core Configuration --- */
+.admin-main-content {
+    width: min(calc(100% - 250px), 900px);
+    min-width: 0;
+    max-width: 100%;
+    margin: 0 auto 0 250px;
+    padding: 34px 28px 48px;
+}
+
+.back-link-wrapper {
+    margin-bottom: 16px;
+}
+
+.back-queue-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.detail-header {
+    border-bottom: 2px solid var(--surface-soft);
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--text);
+}
+
+.detail-header p {
+    margin: 4px 0 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* --- Configuration Inline Badges --- */
+.status-pill {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.status-pill.pending { background: var(--pending-bg); color: var(--pending-text); }
+.status-pill.accepted { background: var(--accepted-bg); color: var(--accepted-text); }
+.status-pill.dispatched { background: var(--dispatched-bg); color: var(--dispatched-text); }
+.status-pill.rejected,
+.status-pill.cancelled { background: var(--error-bg); color: var(--error-text); }
+
+/* --- Dual Form Split Balancing --- */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.section-title {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Component Card Layouts --- */
+.items-display-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+}
+
+.order-item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    border-bottom: 1px solid var(--surface-soft);
+    align-items: center;
+}
+
+.order-item-row h4 {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.order-item-row small {
+    color: var(--muted-2);
+    font-size: 12px;
+}
+
+.item-quantity-display {
+    font-size: 14px;
+    color: var(--muted);
+    margin-right: 8px;
+}
+
+.item-subtotal-val {
+    font-weight: bold;
+    color: var(--text);
+}
+
+.total-receivable-banner {
+    background: var(--surface-soft);
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.total-receivable-banner .price-color {
+    color: var(--success-text);
+}
+
+/* --- Panel Side Card Logistics --- */
+.logistics-card {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+}
+
+.logistics-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.actions-control-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: var(--radius);
+}
+
+.workflow-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* --- Control Interface Base Buttons --- */
+.btn-action-base {
+    width: 100%;
+    height: 38px;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    transition: opacity 0.2s ease;
+}
+
+.btn-action-base:hover {
+    opacity: 0.9;
+}
+
+.btn-action-base.approve { background: #28a745; }
+.btn-action-base.reject { background: #dc3545; }
+.btn-action-base.ship { background: #17a2b8; }
+.btn-action-base.revert { background: #6c757d; margin-top: 8px; }
+
+.archived-order-msg {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted-2);
+    text-align: center;
+    font-style: italic;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 920px) {
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 14px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+    .sidebar-brand {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding: 0;
+    }
+    .sidebar-nav ul {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    .sidebar-footer {
+        margin-top: 12px;
+        padding-top: 0;
+    }
+    .admin-main-content {
+        width: 100%;
+        margin-left: 0;
+        padding: 24px 14px;
+    }
+    .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

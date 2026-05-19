@@ -18,6 +18,10 @@
             <li class="${param.active == 'categories' ? 'active' : ''}">
                 <a href="${pageContext.request.contextPath}/admin/categories">Categories</a>
             </li>
+            <!-- Added Link targeting the AdminOrderServlet pipeline -->
+            <li class="${param.active == 'orders' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/admin/orders">Manage Orders</a>
+            </li>
         </ul>
     </nav>
 

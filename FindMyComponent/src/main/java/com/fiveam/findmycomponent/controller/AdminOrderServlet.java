@@ -48,7 +48,7 @@ public class AdminOrderServlet extends HttpServlet {
                     if (order != null) {
                         request.setAttribute("order", order);
                         request.setAttribute("orderItems", orderItems);
-                        request.getRequestDispatcher("/WEB-INF/admin/admin-order-detail.jsp").forward(request, response);
+                        request.getRequestDispatcher("/WEB-INF/views/admin/admin-order-detail.jsp").forward(request, response);
                         return;
                     }
                 } catch (NumberFormatException e) {
@@ -67,7 +67,7 @@ public class AdminOrderServlet extends HttpServlet {
             }
 
             request.setAttribute("orders", orders);
-            request.getRequestDispatcher("/WEB-INF/admin/admin-orders.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/admin-orders.jsp").forward(request, response);
         }
     }
 
