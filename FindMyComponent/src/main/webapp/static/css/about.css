@@ -1,0 +1,201 @@
+/* ==========================================================================
+   about.css — Modern E-Commerce Presentation Profile Stylesheet
+   ========================================================================== */
+
+html body {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.about-page-scoped.about-wrapper {
+    width: min(1200px, calc(100% - 48px));
+    margin: 40px auto 80px;
+}
+
+/* Hero Presentation Styling */
+.about-page-scoped .about-hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff !important;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+}
+
+.about-page-scoped .about-hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    letter-spacing: -1px;
+}
+
+.about-page-scoped .hero-subtitle {
+    font-size: 16px;
+    color: #cbd5e1 !important;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Two-Column Grid Setup */
+.about-page-scoped .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.about-page-scoped .about-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.about-page-scoped .about-card h2,
+.about-page-scoped .about-card h3 {
+    margin-top: 0;
+    color: #0f172a !important;
+    font-weight: 700;
+}
+
+.about-page-scoped .about-card p {
+    line-height: 1.7;
+    color: #475569 !important;
+    font-size: 15px;
+}
+
+/* Internal Feature Highlights Box Elements */
+.about-page-scoped .shop-features-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 28px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 24px;
+}
+
+.about-page-scoped .feature-item h4 {
+    margin: 8px 0 4px 0;
+    font-size: 15px;
+    color: #0f172a !important;
+}
+
+.about-page-scoped .feature-item p {
+    font-size: 13px;
+    margin: 0;
+}
+
+.about-page-scoped .feature-icon {
+    font-size: 20px;
+}
+
+/* Sidebar Informational Presentation List */
+.about-page-scoped .section-desc {
+    font-size: 13px;
+    color: #94a3b8 !important;
+    margin-top: -4px;
+    margin-bottom: 20px;
+}
+
+.about-page-scoped .details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+.about-page-scoped .details-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.about-page-scoped .details-list li strong {
+    color: #64748b;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.about-page-scoped .badge {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.about-page-scoped .badge-success {
+    background-color: #dcfce7 !important;
+    color: #15803d !important;
+}
+
+/* Call To Action Box Styling */
+.about-page-scoped .cta-box {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.about-page-scoped .cta-box h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.about-page-scoped .cta-button {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+
+.about-page-scoped .cta-button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Footer Highlights Row Panel */
+.about-page-scoped .highlights-section h3 {
+    font-size: 18px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.about-page-scoped .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.about-page-scoped .highlight-block h5 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    color: #0f172a !important;
+    font-weight: 600;
+}
+
+.about-page-scoped .highlight-block p {
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Responsive Fluid Grid Breakpoints */
+@media (max-width: 900px) {
+    .about-page-scoped .about-grid {
+        grid-template-columns: 1fr;
+    }
+}

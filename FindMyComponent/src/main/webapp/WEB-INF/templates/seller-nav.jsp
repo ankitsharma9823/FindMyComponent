@@ -18,6 +18,11 @@
            class="nav-item ${param.activeTab == 'form' ? 'active' : ''}">
             Add Inventory
         </a>
+        <!-- Integrated Sales Analytics Engine Link -->
+        <a href="${pageContext.request.contextPath}/seller/sales"
+           class="nav-item ${param.activeTab == 'sales' ? 'active' : ''}">
+            Sales Analytics
+        </a>
     </div>
 
     <div class="nav-actions">

@@ -71,7 +71,7 @@ public class SellerSalesServlet extends HttpServlet {
         request.setAttribute("productNames", productNames);
         request.setAttribute("productRevenues", productRevenues);
 
-        request.getRequestDispatcher("/WEB-INF/seller/sales.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/seller/sales.jsp").forward(request, response);
     }
 
     // ==================== DATA PROCESSING METHODS ====================

@@ -17,8 +17,17 @@
             Marketplace
         </a>
 
+        <a href="${pageContext.request.contextPath}/about.jsp?activeTab=about"
+           class="nav-item ${param.activeTab == 'about' ? 'active' : ''}">
+            About Us
+        </a>
+
+        <a href="${pageContext.request.contextPath}/contact.jsp?activeTab=contact"
+           class="nav-item ${param.activeTab == 'contact' ? 'active' : ''}">
+            Contact Us
+        </a>
+
         <%-- MULTI-LAYER SESSION CHECK --%>
-        <%-- Checks both common session variable names to guarantee it catches your login state --%>
         <c:if test="${not empty sessionScope.user || not empty sessionScope.buyer || not empty sessionScope.account}">
             <a href="${pageContext.request.contextPath}/buyer/cart"
                class="nav-item ${param.activeTab == 'cart' ? 'active' : ''}">
@@ -37,7 +46,6 @@
 
     <div class="nav-actions">
         <c:choose>
-            <%-- Match the exact same logic for the greeting block --%>
             <c:when test="${not empty sessionScope.user || not empty sessionScope.buyer || not empty sessionScope.account}">
                 <span class="nav-right">
                     Hi, <c:out value="${sessionScope.user.username != null ? sessionScope.user.username : (sessionScope.buyer.username != null ? sessionScope.buyer.username : 'User')}" />

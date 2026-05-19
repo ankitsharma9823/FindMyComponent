@@ -9,9 +9,6 @@
 
     <nav class="sidebar-nav">
         <ul>
-            <li class="${param.active == 'dashboard' ? 'active' : ''}">
-                <a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
-            </li>
             <li class="${param.active == 'users' ? 'active' : ''}">
                 <a href="${pageContext.request.contextPath}/admin/users">Users Loop</a>
             </li>
